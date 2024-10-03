@@ -44,3 +44,17 @@ You need to define this route at the bottom of your routes. If the top, you'll g
 app.listen(PORT, () => {...} // enable the server to listen for requests
 
 `Morgan` is used for logging your Node.js application
+
+# CHAPTER 4 - Using EJS templating engine for views
+
+Templating engines allow you to dynamically render your HTML pages.
+
+EJS enables you to embed Javascript by using the <% %> tag.
+
+```
+http://localhost:3000/about
+The About page
+Response created using EJS
+```
+
+You can resuse EJS Template with partials by include() function
