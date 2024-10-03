@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan') // for logging
+const path = require('path')
 
 const app = express() // CREATE an Express application
 
@@ -7,6 +8,7 @@ app.set('views', './views') // add specific configurations to Express
 app.set('view engine', 'ejs')
 
 app.use(morgan('dev')) // use() method is used to register a middleware function
+app.use('/public', express.static(path.join(__dirname, './public'))) // make the `public` folder static so that the browser can reach the style.css file
 
 // Express enables you to specify and separate the URL routes available in your application
 app.get('/', (req, res) => {

@@ -58,3 +58,16 @@ Response created using EJS
 ```
 
 You can resuse EJS Template with partials by include() function
+
+
+npm install --save-dev tailwindcss postcss autoprefixer postcss-cli
+
+npx tailwindcss init-p
+Created Tailwind CSS config file: tailwind.config.js
+Created PostCSS config file: postcss.config.js  // tool is used to run CSS compilation
+
+"devcss": "postcss public/styles/tailwind.css -o public/styles/style.css -w"
+
+The `-o` option is used to tell PostCSS where to put the produced CSS file -> `public/styles/style.css`
+
+The `-w` option passed to PostCSS will make it watch our template files for any changes, and then run the process again.
