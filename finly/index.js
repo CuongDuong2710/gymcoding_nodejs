@@ -2,6 +2,9 @@ const express = require('express')
 const morgan = require('morgan') // for logging
 const path = require('path')
 
+require('dotenv').config()
+require('./lib/dbConnect')
+
 const app = express() // CREATE an Express application
 
 app.set('views', './views') // add specific configurations to Express

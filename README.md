@@ -71,3 +71,7 @@ Created PostCSS config file: postcss.config.js  // tool is used to run CSS compi
 The `-o` option is used to tell PostCSS where to put the produced CSS file -> `public/styles/style.css`
 
 The `-w` option passed to PostCSS will make it watch our template files for any changes, and then run the process again.
+
+# CHAPTER 7 - Connect MongoDB
+npm install mongodb mongoose
+npm install dotenv
