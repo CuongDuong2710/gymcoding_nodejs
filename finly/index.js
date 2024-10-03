@@ -5,6 +5,8 @@ const path = require('path')
 require('dotenv').config()
 require('./lib/dbConnect')
 
+const userRouter = require('./routes/user.route')
+
 const app = express() // CREATE an Express application
 
 app.set('views', './views') // add specific configurations to Express
@@ -18,6 +20,8 @@ app.get('/', (req, res) => {
     // res.send('Hello From Node.js')
     res.render('index', { message: 'Hello From Node.js' })
 })
+
+app.use('/users', userRouter) // use the `app.use()` instead of `app.get()` because we want to let the `userRouter` object handles the requests coming to the /users route
 
 app.get('/contact', (req, res) => {
     // res.send('The Contact Page')

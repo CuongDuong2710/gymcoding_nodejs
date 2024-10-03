@@ -75,3 +75,9 @@ The `-w` option passed to PostCSS will make it watch our template files for any 
 # CHAPTER 7 - Connect MongoDB
 npm install mongodb mongoose
 npm install dotenv
+
+# CHAPTER 8 - MVC
+
+MongoDB will only create a database when you insert data into a collection.
+
+So, first enter urls `http://localhost:3000/users/create` to create user -> Mongo cluster will display `finly` database and `user` collection
