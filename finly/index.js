@@ -15,23 +15,16 @@ app.set('view engine', 'ejs')
 app.use(morgan('dev')) // use() method is used to register a middleware function
 app.use('/public', express.static(path.join(__dirname, './public'))) // make the `public` folder static so that the browser can reach the style.css file
 
+app.use(
+    session({
+        secret: ProcessingInstruction.env.AUTH_SECRET, // key used to sign the session
+        saveUninitialized: true, // used to optimize the session storage
+        resave: false // used to optimize the session storage
+    })
+)
+
 // Express enables you to specify and separate the URL routes available in your application
-app.get('/', (req, res) => {
-    // res.send('Hello From Node.js')
-    res.render('index', { message: 'Hello From Node.js' })
-})
-
-app.use('/users', userRouter) // use the `app.use()` instead of `app.get()` because we want to let the `userRouter` object handles the requests coming to the /users route
-
-app.get('/contact', (req, res) => {
-    // res.send('The Contact Page')
-    res.render('index', { message: 'The Contact Page' })
-})
-
-app.get('/about', (req, res) => {
-    // res.send('The About Page')
-    res.render('index', { message: 'The About page' })
-})
+app.use('/', userRouter) // use the `app.use()` instead of `app.get()` because we want to let the `userRouter` object handles the requests coming to the /users route
 
 // The asterisk * symbol is known as the wild card route, it will match any URL route
 // You need to define this route at the bottom of your routes. If the top, you'll get the 404 response when you visit a valid route

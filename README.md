@@ -57,6 +57,17 @@ The About page
 Response created using EJS
 ```
 
+Setting content to `views` folder in `tailwind.config.js`
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./views/**/*.ejs'],
+  theme: {
+    extend: {},
+  },
+  plugins: [require('daisyui')],
+}
+
+
 You can resuse EJS Template with partials by include() function
 
 
@@ -81,3 +92,17 @@ npm install dotenv
 MongoDB will only create a database when you insert data into a collection.
 
 So, first enter urls `http://localhost:3000/users/create` to create user -> Mongo cluster will display `finly` database and `user` collection
+
+# CHAPTER 9 - AUTHENTICATION
+
+In Express, user authentication can be done by creating a session as an identifier that keeps track of the user.
+
+When  the user signs up or logs into our application, a session is created by Express and sent to the browser as a cookie.
+
+The cookie needs to be included in all subsequent requests sent by the browser -> Express knows that the user is allowed to access the resource it wants to access.
+
+When user logs out, the session and cookie are removed from both the server and the client.
+
+npm install express-session
+
+$ openssl rand -base64 32 -> generate AUTH_SECRET
