@@ -11,7 +11,11 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/signup', (req, res) => {
-    res.render('pages/signup', { title: 'Sign up', errors: req.flash('errors')}) // get value from key 'errors'
+    res.render('pages/signup', {
+        title: 'Sign up',
+        user: req.flash('data')[0],
+        info: req.flash('info')[0],
+        errors: req.flash('errors')}) // get value from key 'errors'
 })
 
 // the validator array needs to be called before the signup() process

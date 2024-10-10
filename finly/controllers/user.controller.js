@@ -14,18 +14,25 @@ const validateSignup = [
 
 const signup = async (req, res) => {
     const validationErrors = validationResult(req)
-    const { email, password } = req.body
-    const query = { email }
-
+    
     if (!validationErrors.isEmpty()) {
         const errors = validationErrors.array()
         req.flash('errors', errors) // key-value pairs to store the message
+        req.flash('data', req.body)
         return res.redirect('/signup')
     }
-
+    
+    const { email, password } = req.body
+    const query = { email }
     const existingUser = await User.findOne(query)
+    
     if (existingUser) {
         // Email already exists
+        req.flash('data', req.body)
+        req.flash('info', {
+            message: 'Email is already registered. Try to login instead',
+            type: 'error'
+        })
         res.redirect('/signup')
     } else {
         const hashedPassword = await bcrypt.hash(password, 10)
