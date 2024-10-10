@@ -118,6 +118,10 @@ The extended options is used to let Express know whether we want to process ad-v
 
 # CHAPTER 10 - VALIDATING FORM INPUTS AND DISPLAYING MESSAGES
 
-express-validator is an Express middleware that can be used to validate the req.body object values.
+`express-validator` is an Express middleware that can be used to validate the req.body object values.
 
 npm install express-validator
+
+`connect-flash` provides a special area in the session object called flash, which is used for storing messages.
+
+`flash` requires an existing session, make sure that you call `app.use(flash())` after `app.use(session())` in your file.
