@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan') // for logging
 const path = require('path')
+const flash = require('connect-flash')
 
 require('dotenv').config()
 require('./lib/dbConnect')
@@ -24,6 +25,7 @@ app.use(
         resave: false // used to optimize the session storage
     })
 )
+app.use(flash())
 
 // Express enables you to specify and separate the URL routes available in your application
 app.use('/', userRouter) // use the `app.use()` instead of `app.get()` because we want to let the `userRouter` object handles the requests coming to the /users route

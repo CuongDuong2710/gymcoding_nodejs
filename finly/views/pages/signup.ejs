@@ -9,12 +9,27 @@
                     <p class="text-[44px]">Finly</p>
                 </div>
             </div>
-                <form>
-                    <div>
-
+                <form action="/signup" method="post" class="space-y-3">
+                    <div class="flex flex-col rounded-lg bg-slate-100 p-6 gap-4">
+                        <h1 class="mb-3 text-2xl">Create Your Account Today</h1>
+                        <%-include('../partials/formErrors')%>
+                        <label class="input input-bordered flex items-center gap-2">
+                            <i class="opacity-70 fa-solid fa-envelope"></i>
+                            <input name="email" type="email" class="grow" placeholder="Email">
+                        </label class="input input-bordered flex items-center gap-2">
+                        <label>
+                            <i class="opacity-70 fa-solid fa-key"></i>
+                            <input name="password" type="password" class="grow" placeholder="Password">
+                        </label>
+                        <label class="input input-bordered flex items-center gap-2">
+                            <i class="opacity-70 fa-solid fa-key">
+                            </i>
+                            <input name="repeatPassword" type="repeatPassword" class="grow" placeholder="Repeat Password">
+                        </label>
                     </div>
                     <button>
                         Sign up
+                        <i aria-hidden="true" class="ml-auto fa-solid fa-arrow-right fa-lg"></i>
                     </button>
                 </form>
             <span>

@@ -106,3 +106,18 @@ When user logs out, the session and cookie are removed from both the server and 
 npm install express-session
 
 $ openssl rand -base64 32 -> generate AUTH_SECRET
+
+
+When handling the POST rquest, Express needs to use the urlencoded() middleware to process form data.
+
+
+app.use(express.urlencoded({extend: false}))
+
+The extended options is used to let Express know whether we want to process ad-vanced input formats (like nested objects or arrays)
+
+
+# CHAPTER 10 - VALIDATING FORM INPUTS AND DISPLAYING MESSAGES
+
+express-validator is an Express middleware that can be used to validate the req.body object values.
+
+npm install express-validator
