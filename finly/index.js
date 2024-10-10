@@ -6,6 +6,7 @@ require('dotenv').config()
 require('./lib/dbConnect')
 
 const userRouter = require('./routes/user.route')
+const dashboardRouter = require('./routes/dashboard.route')
 
 const app = express() // CREATE an Express application
 
@@ -14,6 +15,7 @@ app.set('view engine', 'ejs')
 
 app.use(morgan('dev')) // use() method is used to register a middleware function
 app.use('/public', express.static(path.join(__dirname, './public'))) // make the `public` folder static so that the browser can reach the style.css file
+app.use(express.urlencoded({ extended: false })) // Express needs to use this middleware to process form data
 
 app.use(
     session({
@@ -25,6 +27,7 @@ app.use(
 
 // Express enables you to specify and separate the URL routes available in your application
 app.use('/', userRouter) // use the `app.use()` instead of `app.get()` because we want to let the `userRouter` object handles the requests coming to the /users route
+app.use('/dashboard', dashboardRouter)
 
 // The asterisk * symbol is known as the wild card route, it will match any URL route
 // You need to define this route at the bottom of your routes. If the top, you'll get the 404 response when you visit a valid route
