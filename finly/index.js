@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan') // for logging
 const path = require('path')
+const session = require('express-session')
 const flash = require('connect-flash')
 
 require('dotenv').config()
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: false })) // Express needs to use this mi
 
 app.use(
     session({
-        secret: ProcessingInstruction.env.AUTH_SECRET, // key used to sign the session
+        secret: process.env.AUTH_SECRET, // key used to sign the session
         saveUninitialized: true, // used to optimize the session storage
         resave: false // used to optimize the session storage
     })
