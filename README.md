@@ -125,3 +125,7 @@ npm install express-validator
 `connect-flash` provides a special area in the session object called flash, which is used for storing messages.
 
 `flash` requires an existing session, make sure that you call `app.use(flash())` after `app.use(session())` in your file.
+
+MVC
+
+View and Controller communicate via `routes` folder

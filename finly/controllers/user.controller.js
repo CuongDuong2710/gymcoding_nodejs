@@ -7,8 +7,8 @@ const validateSignup = [
         body('password', 'Password must not be empty').notEmpty(),
         body('password', 'Password must be 6+ characters long').isLength({ min: 6 }),
         body('repeatPassword', 'Repeat Password must not be empty').notEmpty(),
-    body('repeatPassword', 'Password do not match').custom((value, { req }) => (
-        value === req.body.password
+        body('repeatPassword', 'Password do not match').custom((value, { req }) => (
+            value === req.body.password
     )),
 ]
 
@@ -47,7 +47,61 @@ const signup = async (req, res) => {
     }
 }
 
+const validateLogin = [
+    body('email', 'Email must not be empty').notEmpty(),
+    body('password', 'Password must not be empty').notEmpty()
+]
+
+const login = async (req, res) => {
+    const validationErrors = validationResult(req)
+    if (!validationErrors.isEmpty()) {
+        const errors = validationErrors.array()
+        req.flash('errors', errors)
+        req.flash('data', req.body)
+        return res.redirect('/login')
+    }
+
+    const { email, password } = req.body
+    const user = await User.findOne({ email })
+
+    if (user) {
+        const passwordMatch = await bcrypt.compare(password, user.password)
+        if (passwordMatch) {
+            req.session.userId = user._id
+            req.flash('info', {
+                message: 'Login Sucessful',
+                type: 'success'
+            })
+            res.redirect('/dashboard')
+        } else {
+            req.flash('info', {
+                message: 'Wrong password',
+                type: 'error'
+            })
+            res.redirect('/login')
+        }
+    } else {
+        req.flash('info', {
+            message: 'Email is not registered',
+            type: 'error'
+        })
+        req.flash('data', req.body)
+        res.redirect('/login')
+    }
+}
+
+const logout = (req, res) => {
+    req.session.userId = null
+    req.flash('info', {
+        message: 'Logout successful',
+        type: 'success'
+    })
+}
+
 module.exports = {
     signup,
-    validateSignup
+    validateSignup,
+    login,
+    validateLogin,
+    logout
 }
