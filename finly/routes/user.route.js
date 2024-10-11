@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { validateSignup, signup, login, validateLogin, logout } = require('../controllers/user.controller')
+const { redirectAuthenticated } = require('../lib/middleware')
 
 router.get('/', (req, res) => {
     res.render('pages/index', {
@@ -9,7 +10,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/signup', (req, res) => {
+router.get('/signup', redirectAuthenticated, (req, res) => {
     res.render('pages/signup', {
         title: 'Sign up',
         user: req.flash('data')[0],
@@ -20,7 +21,7 @@ router.get('/signup', (req, res) => {
     // the validator array needs to be called before the signup() process
 router.post('/signup', validateSignup, signup)
     
-router.get('/login', (req, res) => {
+router.get('/login', redirectAuthenticated, (req, res) => {
     res.render('pages/login', {
         title: 'Sign in',
         user: req.flash('data')[0],

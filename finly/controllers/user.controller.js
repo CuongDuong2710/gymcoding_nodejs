@@ -8,7 +8,7 @@ const validateSignup = [
         body('password', 'Password must be 6+ characters long').isLength({ min: 6 }),
         body('repeatPassword', 'Repeat Password must not be empty').notEmpty(),
         body('repeatPassword', 'Password do not match').custom((value, { req }) => (
-            value === req.body.password
+        value === req.body.password
     )),
 ]
 
@@ -96,6 +96,7 @@ const logout = (req, res) => {
         message: 'Logout successful',
         type: 'success'
     })
+    res.redirect('/')
 }
 
 module.exports = {

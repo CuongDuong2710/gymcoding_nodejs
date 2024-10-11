@@ -129,3 +129,9 @@ npm install express-validator
 MVC
 
 View and Controller communicate via `routes` folder
+
+# CHAPTER 12 - PROTECTING ROUTES WITH MIDDLEWARES
+
+In Express, middleware are funtions that have access to the requeust, response and next object.
+
+When a request arrives, Express will try to find the middleware that matches the route ordered from top to bottom

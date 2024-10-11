@@ -2,7 +2,8 @@ const express = require('express')
 const morgan = require('morgan') // for logging
 const path = require('path')
 const session = require('express-session')
-const flash = require('connect-flash')
+const flash = require('connect-flash') // save data info into session
+const { verifyUser } = require('./lib/middleware')
 
 require('dotenv').config()
 require('./lib/dbConnect')
@@ -30,7 +31,7 @@ app.use(flash())
 
 // Express enables you to specify and separate the URL routes available in your application
 app.use('/', userRouter) // use the `app.use()` instead of `app.get()` because we want to let the `userRouter` object handles the requests coming to the /users route
-app.use('/dashboard', dashboardRouter)
+app.use('/dashboard', verifyUser, dashboardRouter)
 
 // The asterisk * symbol is known as the wild card route, it will match any URL route
 // You need to define this route at the bottom of your routes. If the top, you'll get the 404 response when you visit a valid route
