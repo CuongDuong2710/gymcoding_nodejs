@@ -17,7 +17,6 @@ server.listen(3000, () => {
 Nodemon is a monitoring script that will automatically restart Node.js when it detects any changes to the files
 in your project.
 
-
 D:/...gymcoding_nodejs\finly> npm run dev  
 
 ```
@@ -67,9 +66,7 @@ module.exports = {
   plugins: [require('daisyui')],
 }
 
-
 You can resuse EJS Template with partials by include() function
-
 
 npm install --save-dev tailwindcss postcss autoprefixer postcss-cli
 
@@ -84,6 +81,7 @@ The `-o` option is used to tell PostCSS where to put the produced CSS file -> `p
 The `-w` option passed to PostCSS will make it watch our template files for any changes, and then run the process again.
 
 # CHAPTER 7 - Connect MongoDB
+
 npm install mongodb mongoose
 npm install dotenv
 
@@ -107,14 +105,11 @@ npm install express-session
 
 $ openssl rand -base64 32 -> generate AUTH_SECRET
 
-
 When handling the POST rquest, Express needs to use the urlencoded() middleware to process form data.
-
 
 app.use(express.urlencoded({extend: false}))
 
 The extended options is used to let Express know whether we want to process ad-vanced input formats (like nested objects or arrays)
-
 
 # CHAPTER 10 - VALIDATING FORM INPUTS AND DISPLAYING MESSAGES
 
