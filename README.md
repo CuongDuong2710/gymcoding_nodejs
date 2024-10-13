@@ -130,3 +130,7 @@ View and Controller communicate via `routes` folder
 In Express, middleware are funtions that have access to the requeust, response and next object.
 
 When a request arrives, Express will try to find the middleware that matches the route ordered from top to bottom
+
+# CHAPTER 13 - CRUD Customer
+
+Click `New Customer` from views (dashboard/customers/create) -> Customer Form -> Validator errors -> if not, submit form with `formAction=create` (pass by customer.route.js) -> method `post` and router will call `createCustomer()` from controllers

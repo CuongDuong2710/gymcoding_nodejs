@@ -21,7 +21,28 @@ const showCustomers = async (req, res) => {
     })
 }
 
+const createCustomer = async (req, res) => {
+    const validationErrors = validationResult(req)
+    if (!validationErrors.isEmpty()) {
+        const errors = validationErrors.array()
+        req.flash('errors', errors)
+        req.flash('data', req.body)
+        return res.redirect('create')
+    }
+
+    const newCustomer = req.body
+    newCustomer.owner = req.session.userId
+
+    await Customer.create(newCustomer)
+    req.flash('info', {
+        message: 'Customer Created',
+        type: 'success'
+    })
+    res.redirect('/dashboard/customers')
+}
+
 module.exports = {
     validateCustomer,
-    showCustomers
+    showCustomers,
+    createCustomer
 }

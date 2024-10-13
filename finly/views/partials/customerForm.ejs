@@ -2,33 +2,33 @@
 <form action="<%- formAction %>" method="post">
     <div class="rounded-md bg-slate-100 p-4 md:p-6">
         <div class="flex flex-col gap-4">
-            <%- include(../partials/formErrors) %>
+            <%- include('../partials/formErrors') %>
             <div class="form-control w-full gap-2">
                 <span class="label-text">Customer Name</span>
                 <label for="name" class="input input-bordered flex items-center gap-2">
                     <i class="fa-regular fa-user"></i>
-                    <input id="name" name="name" type="text" class="grow" placeholder="John Doe" value="<%= customer.name || '' %>"/>
+                    <input id="name" name="name" type="text" class="grow" placeholder="John Doe" value="<%= customer?.name || '' %>"/>
                 </label>
             </div>
             <div class="form-control w-full gap-2">
                 <span class="label-text">Email</span>
                 <label for="email" class="input input-bordered flex items-center gap-2">
                     <i class="fa-regular fa-envelope"></i>
-                    <input id="email" name="email" type="email" class="grow" placeholder="user@mail.com" value="<%= customer.email || '' %>"/>
+                    <input id="email" name="email" type="email" class="grow" placeholder="user@mail.com" value="<%= customer?.email || '' %>"/>
                 </label>
             </div>
             <div class="form-control w-full gap-2">
                 <span class="label-text">Phone</span>
                 <label for="phone" class="input input-bordered flex items-center gap-2">
                     <i class="fa-regular fa-phone"></i>
-                    <input id="phone" name="phone" type="tel" class="grow" placeholder="+123456" value="<%= customer.phone || '' %>"/>
+                    <input id="phone" name="phone" type="tel" class="grow" placeholder="+123456" value="<%= customer?.phone || '' %>"/>
                 </label>
             </div>
             <div class="form-control w-full gap-2">
                 <span class="label-text">Address</span>
                 <label for="address" class="input input-bordered flex items-center gap-2">
                     <i class="fa-regular fa-address-card"></i>
-                    <input id="address" name="address" type="text" class="grow" placeholder="+Hau Giang, P5 Q6" value="<%= customer.address || '' %>"/>
+                    <input id="address" name="address" type="text" class="grow" placeholder="+Hau Giang, P5 Q6" value="<%= customer?.address || '' %>"/>
                 </label>
             </div>
         </div>
