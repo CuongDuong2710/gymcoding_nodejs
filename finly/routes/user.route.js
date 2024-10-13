@@ -15,10 +15,11 @@ router.get('/signup', redirectAuthenticated, (req, res) => {
         title: 'Sign up',
         user: req.flash('data')[0],
         info: req.flash('info')[0],
-        errors: req.flash('errors')}) // get value from key 'errors'
-    })
+        errors: req.flash('errors') // get value from key 'errors'
+    }) 
+})
     
-    // the validator array needs to be called before the signup() process
+// the validator array needs to be called before the signup() process
 router.post('/signup', validateSignup, signup)
     
 router.get('/login', redirectAuthenticated, (req, res) => {
