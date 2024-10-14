@@ -134,3 +134,7 @@ When a request arrives, Express will try to find the middleware that matches the
 # CHAPTER 13 - CRUD Customer
 
 Click `New Customer` from views (dashboard/customers/create) -> Customer Form -> Validator errors -> if not, submit form with `formAction=create` (pass by customer.route.js) -> method `post` and router will call `createCustomer()` from controllers
+
+
+NOTE:
++ Check carefully about router page link (Ex: whether add or remove `/`, `customer` or `customers`, ....)

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { showCustomers, createCustomer, validateCustomer } = require('../controllers/customer.controller')
+const { showCustomers, createCustomer, validateCustomer, editCustomer, updateCustomer } = require('../controllers/customer.controller')
 
 router.get('/', showCustomers)
 
@@ -16,6 +16,10 @@ router.get('/create', function(req, res) {
 })
 
 router.post('/create', validateCustomer, createCustomer)
+
+router.get('/:id/edit', editCustomer)
+
+router.post('/:id/edit', validateCustomer, updateCustomer)
 
 
 module.exports = router
