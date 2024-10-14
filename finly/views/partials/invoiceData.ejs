@@ -34,7 +34,7 @@
                     <td><%= invoice.amount %></td>
                     <td><%= new Date(invoice.date).toLocaleDateString('en-US') %></td>
                     <td>
-                        <%= if (invoice.status === 'paid') { %>
+                        <% if (invoice.status === 'paid') { %>
                             <span class="ml-2 badge badge-sm badge-success p-3 gap-3 text-white">
                                 Paid  <i class="fa-regular fa-circle-check"></i>
                             </span>
