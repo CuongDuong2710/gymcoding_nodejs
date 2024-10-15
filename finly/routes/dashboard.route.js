@@ -3,13 +3,9 @@ const router = express.Router()
 
 const customersRouter = require('./customer.route')
 const invoiceRouter = require('./invoice.route')
+const { showDashboard } = require('../controllers/dashboard.controller')
 
-router.get('/', (req, res) => {
-    res.render('pages/dashboard', {
-        title: 'Dashboard',
-        info: req.flash('info')[0]
-    })
-})
+router.get('/', showDashboard)
 
 // The customers route will be nested below the /dashboard route, so you need to import this route on the dashboard.route.js
 // http://localhost:3000/dashboard/customers

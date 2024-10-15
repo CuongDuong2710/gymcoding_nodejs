@@ -1,5 +1,6 @@
 const Customer = require('../lib/models/customer.model')
 const Invoice = require('../lib/models/invoice.model')
+const { USDollar } = require('../lib/formatter')
 
 const { body, validationResult } = require('express-validator')
 
@@ -23,12 +24,13 @@ const populateInvoices = query => {
 const showInvoices = async (req, res) => {
     const query = { owner: req.session.userId }
 
-    const invoices = await  populateInvoices(Invoice.find(query))
+    const invoices = await populateInvoices(Invoice.find(query))
     res.render('pages/invoices', {
         title: 'Invoices',
         type: 'data',
         invoices,
-        info: req.flash('info')[0]
+        USDollar,
+        info: req.flash('info')[0] // get `info` from createInvoice and updateInvoice
     })
 }
 

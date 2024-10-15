@@ -31,11 +31,11 @@
                 <% invoices.forEach(function(invoice){ %>
                 <tr>
                     <td><%= invoice.customer.name %></td>
-                    <td><%= invoice.amount %></td>
+                    <td><%= USDollar.format(invoice.amount) %></td>
                     <td><%= new Date(invoice.date).toLocaleDateString('en-US') %></td>
                     <td>
                         <% if (invoice.status === 'paid') { %>
-                            <span class="ml-2 badge badge-sm badge-success p-3 gap-3 text-white">
+                            <span class="ml-2 badge badge-sm badge-success p-3 gap-3 text-green-700">
                                 Paid  <i class="fa-regular fa-circle-check"></i>
                             </span>
                         <% } else { %>
