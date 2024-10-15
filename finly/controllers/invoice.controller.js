@@ -32,6 +32,86 @@ const showInvoices = async (req, res) => {
     })
 }
 
+const createInvoice = async (req, res) => {
+    const validationErros = validationResult(req)
+
+    if (!validationErros.isEmpty()) {
+        const errors = validationErros.array()
+        req.flash('errors', errors)
+        req.flash('data', req.body)
+    }
+
+    const newInvoice = req.body
+    newInvoice.owner = req.session.userId
+
+    await Invoice.create(newInvoice)
+    req.flash('info', {
+        message: 'New Invoice Created',
+        type: 'success'
+    })
+    res.redirect('/dashboard/invoices')
+}
+
+const editInvoice = async (req, res) => {
+    const invoiceId = req.params.id
+    const invoice = await populateInvoices(Invoice.findById(invoiceId))
+    const { customers } = req 
+
+    res.render('pages/invoices', {
+        title: 'Edit Invoice',
+        type: 'form',
+        formAction: 'edit',
+        customers,
+        invoice: req.flash('data')[0] || invoice,
+        errors: req.flash('errors')
+    })
+}
+
+const updateInvoice = async (req, res) => {
+    const validationErros = validationResult(req)
+    if (!validationErros.isEmpty()) {
+        const errors = validationErros.array()
+        req.flash('errors', errors)
+        req.flash('data', req.body)
+        return res.redirect('edit')
+    }
+
+    const invoiceId = req.params.id
+    const invoiceData = req.body
+
+    await Invoice.findByIdAndUpdate(invoiceId, invoiceData)
+    req.flash('info', {
+        message: 'Invoice updated',
+        type: 'success'
+    })
+    res.redirect('/dashboard/invoices')
+}
+
+const deleteInvoice = async (req, res) => {
+    const invoiceId = req.params.id
+
+    await Invoice.findByIdAndDelete(invoiceId)
+    req.flash('info', {
+        message: ' Invoice Deleted',
+        type: 'success'
+    })
+    res.redirect('/dashboard/invoices')
+}
+
+// The customer data is attached to the `req.customers`. So the next middleware can access the data there.
+const getCustomers = async (req, res, next) => {
+    const customerQuery = { owner: req.session.userId }
+    const customers = await Customer.find(customerQuery)
+    req.customers = customers
+    next()
+}
+
 module.exports = {
-    showInvoices
+    showInvoices,
+    createInvoice,
+    validateInvoice,
+    getCustomers,
+    editInvoice,
+    updateInvoice,
+    deleteInvoice
 }

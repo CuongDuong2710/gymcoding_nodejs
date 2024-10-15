@@ -138,3 +138,19 @@ Click `New Customer` from views (dashboard/customers/create) -> Customer Form ->
 
 NOTE:
 + Check carefully about router page link (Ex: whether add or remove `/`, `customer` or `customers`, ....)
+
+# CHAPTER 14 - CRUD Invoices
+
+Attached data into request for the next middleware
+
+// The customer data is attached to the `req.customers`. So the next middleware can access the data there. In the invoice.controller.js, we write same as below
+const getCustomers = async (req, res, next) => {
+    const customerQuery = { owner: req.session.userId }
+    const customers = await Customer.find(customerQuery)
+    req.customers = customers
+    next()
+}
+
+// In invoice.route.js, we can get customers
+router.get('/create', getCustomers, (req, res) => {
+    const { customers } = req
