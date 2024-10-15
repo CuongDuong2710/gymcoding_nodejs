@@ -33,12 +33,13 @@ const showInvoices = async (req, res) => {
 }
 
 const createInvoice = async (req, res) => {
-    const validationErros = validationResult(req)
+    const validationErrors = validationResult(req)
 
-    if (!validationErros.isEmpty()) {
-        const errors = validationErros.array()
+    if (!validationErrors.isEmpty()) {
+        const errors = validationErrors.array()
         req.flash('errors', errors)
         req.flash('data', req.body)
+        return res.redirect('create')
     }
 
     const newInvoice = req.body
@@ -68,9 +69,9 @@ const editInvoice = async (req, res) => {
 }
 
 const updateInvoice = async (req, res) => {
-    const validationErros = validationResult(req)
-    if (!validationErros.isEmpty()) {
-        const errors = validationErros.array()
+    const validationErrors = validationResult(req)
+    if (!validationErrors.isEmpty()) {
+        const errors = validationErrors.array()
         req.flash('errors', errors)
         req.flash('data', req.body)
         return res.redirect('edit')
