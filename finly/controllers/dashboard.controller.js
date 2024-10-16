@@ -17,6 +17,10 @@ const showDashboard = async (req, res) => {
         select: '_id name'
     })
 
+    allInvoices.sort((a, b) => new Date(b.date) - new Date(a.date))
+
+    const latestInvoices = allInvoices.slice(0, 5)
+
     const totalPaid = allInvoices.reduce((sum, invoice) => {
         return invoice.status === 'paid' ? sum + invoice.amount : sum
     }, 0)
@@ -25,8 +29,39 @@ const showDashboard = async (req, res) => {
         return invoice.status === 'pending' ? sum + invoice.amount : sum
     }, 0)
 
+    const revenueData = [];
+
+    for (let i = 0; i < 6; i++) {
+        const today = new Date();
+        today.setMonth(today.getMonth() - i);
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        const month = today.toLocaleString('default', { month: 'short' });
+
+        const revenueForMonth = allInvoices
+        .filter(invoice => {
+            return (
+            new Date(invoice.date) >= firstDay &&
+            new Date(invoice.date) <= lastDay
+            );
+        })
+        .reduce((total, invoice) => total + invoice.amount, 0);
+
+        revenueData.unshift({ month, revenue: revenueForMonth });
+    }
+   /*  [
+        { month: 'Nov', revenue: 300 },
+        { month: 'Dec', revenue: 100 },
+        { month: 'Jan', revenue: 0 },
+        { month: 'Feb', revenue: 400 },
+        { month: 'Mar', revenue: 50 },
+        { month: 'Apr', revenue: 350 }
+      ] */
+
     res.render('pages/dashboard', {
         title: 'Dashboard',
+        revenueData: JSON.stringify(revenueData),
+        latestInvoices,
         invoiceCount,
         customerCount,
         totalPaid,

@@ -154,3 +154,8 @@ const getCustomers = async (req, res, next) => {
 // In invoice.route.js, we can get customers
 router.get('/create', getCustomers, (req, res) => {
     const { customers } = req
+
+list.map() => show properties in view
+list.slice(0, 5) => get first five item in array list
+list.unshift({a, b}) => push new object into array list
+list.reduce(a, b) => calculate
