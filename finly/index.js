@@ -37,7 +37,10 @@ app.use('/dashboard', verifyUser, dashboardRouter)
 // You need to define this route at the bottom of your routes. If the top, you'll get the 404 response when you visit a valid route
 app.get('*', (req, res) => { 
     // res.status(404).send('Not Found')
-    res.status(404).render('index', { message: 'Not Found' })
+    res.status(404).render('index', {
+        title: 'Not Found',
+        message: 'Not Found'
+    })
 })
 
 const PORT = 3000
