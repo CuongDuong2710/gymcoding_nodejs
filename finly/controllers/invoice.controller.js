@@ -20,12 +20,13 @@ const populateInvoices = (query, search) => {
     }
     if (search) {
         populateOptions['match'] = { name: { $regex: search, $options: 'i' } }
+        // The customer property will be null when the customer data doesn't match the search value
+        // So you need to filter the invoice data and remove all invoices that have the customer value of null
+        return query
+        .populate(populateOptions)
+        .then(invoices => invoices.filter(invoices => invoices.customer != null))
     }
-    // The customer property will be null when the customer data doesn't match the search value
-    // So you need to filter the invoice data and remove all invoices that have the customer value of null
-    return query
-    .populate(populateOptions)
-    .then(invoices => invoices.filter(invoices => invoices.customer != null))
+    return query.populate(populateOptions)
 }
 
 const showInvoices = async (req, res) => {
