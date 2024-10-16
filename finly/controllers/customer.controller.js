@@ -12,6 +12,17 @@ const validateCustomer = [
 
 const showCustomers = async (req, res) => {
     const query = { owner: req.session.userId }
+    const { search } = req.query
+
+    if (search) {
+        query['$or'] = [
+            { name: { $regex: search, $options: 'i' } },
+            { email: { $regex: search, $options: 'i' } },
+            { phone: { $regex: search, $options: 'i' } },
+            { address: { $regex: search, $options: 'i' } },
+        ]
+    }
+
     const customers = await Customer.find(query)
 
     res.render('pages/customers', {

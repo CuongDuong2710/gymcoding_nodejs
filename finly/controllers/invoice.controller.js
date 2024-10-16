@@ -12,19 +12,27 @@ const validateInvoice = [
 ]
 
 // populate() method is used to pull referenced document data. We pull the customer name for each invoice
-const populateInvoices = query => {
-    return query
-    .populate({
+const populateInvoices = (query, search) => {
+    const populateOptions = {
         path: 'customer',
         model: Customer,
         select: '_id name'
-    })
+    }
+    if (search) {
+        populateOptions['match'] = { name: { $regex: search, $options: 'i' } }
+    }
+    // The customer property will be null when the customer data doesn't match the search value
+    // So you need to filter the invoice data and remove all invoices that have the customer value of null
+    return query
+    .populate(populateOptions)
+    .then(invoices => invoices.filter(invoices => invoices.customer != null))
 }
 
 const showInvoices = async (req, res) => {
     const query = { owner: req.session.userId }
+    const { search } = req.query
 
-    const invoices = await populateInvoices(Invoice.find(query))
+    const invoices = await populateInvoices(Invoice.find(query), search)
     res.render('pages/invoices', {
         title: 'Invoices',
         type: 'data',
